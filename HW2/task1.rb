@@ -13,5 +13,34 @@ p '______________________________________'
 p "Descending sorted array: #{(array.sort).reverse}"
 p '______________________________________'
 p "Array without odd numbers: #{array.select { |element| element.even? }}"
+p '______________________________________'
 p "Nums that are divisible by 3 without remainder: #{array.select {|element| element % 3 == 0 }} "
+p '______________________________________'
 p "Array with uniq elements: #{array.uniq}"
+p '______________________________________'
+p "Every element divided by 10: #{array.map{ |element| element / 10.0}}"
+#TODO
+
+puts '______________________________________'
+min = array.index(array.min)
+max = array.index(array.max)
+array[min], array[max] = array[max], array[min]
+p array
+puts '______________________________________'
+
+array.each do |element|
+	print "#{element} "
+	if element == array.min
+		print "\n"
+		break
+	end
+end
+puts '______________________________________'
+
+copiedArray = array
+3.times do
+	print "#{copiedArray.min} "
+	copiedArray.delete(copiedArray.min)
+end
+print "\n"
+puts '______________________________________'
