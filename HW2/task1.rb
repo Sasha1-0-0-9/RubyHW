@@ -19,7 +19,16 @@ p '______________________________________'
 p "Array with uniq elements: #{array.uniq}"
 p '______________________________________'
 p "Every element divided by 10: #{array.map{ |element| element / 10.0}}"
-#TODO
+
+
+english_array = ('a'..'z').to_a
+english_array_empty = []
+english_array.each_with_index do |element, index|
+	if array.include?(index + 1)
+		 english_array_empty <<  element
+	end
+end
+p english_array_empty
 
 puts '______________________________________'
 min = array.index(array.min)
