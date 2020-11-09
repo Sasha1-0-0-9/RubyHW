@@ -20,7 +20,7 @@ class Ui
 		Press 5 to heal your pet
 		Press 6 to drink an energy drink
 		Press 7 to play board games with your pet
-		Press 8 to watch your pet
+		Press 8 to watch what's your pet doing without you
 		Press 9 to skip 1 day
 		Use 'help' to get menu with instruction\x1b[0m"
 	end
@@ -41,7 +41,7 @@ class Ui
 	            $$$$$$$$$$$$ \x1b[0m"""
 	end
 
-		def duckWhenLost(param)
+		def duck_when_lost(param)
 				puts "\x1b[33m	            $$$$$$      /\x1b[5;1;33m#{param}\x1b[0m\x1b[33m
 	           $$_____$$   /
 	          $__(\x1b[31mX\x1b[33m)____$$/

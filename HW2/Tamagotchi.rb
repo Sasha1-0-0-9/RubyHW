@@ -11,45 +11,44 @@ class Duck < Ui
 		@health = 100
 		@energy = 100
 		banner()
-
 		puts @name + ' was born!'
 	end
 
 	def feed
 		puts "You feed #{@name}"
-		after1hour(@asleep, @happiness,0, @cleanliness, @health)
+		after_period_of_time(@asleep, @happiness, 0 , @cleanliness, @health, @energy)
 		@satiety = 100
 		@cleanliness -= rand(10..30)
 		@happiness += rand(5..30)
 		@energy += rand(5..10)
-		timeChanging()
+		checking()
 	end
 
 	def walk
 		puts "You walked with #{@name}"
-		after1hour(@asleep, 0,@satiety, @cleanliness, @health)
+		after_period_of_time(@asleep, 0, @satiety, @cleanliness, @health, @energy)
 		@happiness += rand(20..40)
 		@asleep -= rand(5..15)
 		@cleanliness -= rand(10..30)
 		@energy -= rand(20..50)
-		timeChanging()
+		checking()
 	end
 
-	def takeAShower
+	def take_a_shower
 		puts "#{@name} goes to have a shower"
-		after1hour(@asleep, @happiness,@satiety, 0, @health)
+		after_period_of_time(@asleep, @happiness, @satiety, 0, @health, @energy)
 		@cleanliness = 100
 		@energy -= 5
-		timeChanging()
+		checking()
 	end
-	def goToSleep
-		after1hour(0, @happiness,@satiety, @cleanliness, @health)
+	def go_to_sleep
+		after_period_of_time(0, @happiness,@satiety, @cleanliness, @health, @energy)
 		@asleep = rand(0..30)
 		@happiness += rand(5..30)
 		@energy += rand(10..30)
 		puts "#{@name} sleeping sweety"
 		puts "Zzz"
-		timeChanging()
+		checking()
 	end
 
 	def heal
@@ -63,57 +62,56 @@ class Duck < Ui
 		end
 	end
 
-	def drinkAnEnergyDrink
-		after1hour(@asleep, @happiness ,@satiety, @cleanliness, @health)
+	def drink_an_energy_drink
+		puts "#{@name} drinked energy drink"
+		after_period_of_time(@asleep, @happiness ,@satiety, @cleanliness, @health, 0)
 		@energy += 30
 		@health -= 15
 		@asleep -= 5
-		timeChanging()
+		checking()
 	end
 
-	def playBoardgames
-		after1hour(@asleep, @happiness ,@satiety, @cleanliness, @health)
+	def play_boardgames
+		puts "You playing board games with #{@name}"
+		after_period_of_time(@asleep, @happiness ,@satiety, @cleanliness, @health, @energy)
 		@happiness += rand(10..30)
 		@asleep -= rand(5..10)
 		@energy -= rand(0..10)
-		timeChanging()
+		checking()
 	end
 
 	def spectate
-		if rand(0..1) == 0
+		if rand(0..1).zero?
 			puts "You saw how your pet eats junk food"
-			randomAction1_eatJunkFood()
+			random_action1_eat_junk_food()
 		else
 			puts "You saw how your pet do sports"
-			randomAction2_doSports()
+			random_action2_do_sports()
 		end
 	end
 
 
-	def randomAction1_eatJunkFood
-		after1hour(@asleep, @happiness ,@satiety, @cleanliness, @health)
+	def random_action1_eat_junk_food
+		after_period_of_time(@asleep, @happiness ,@satiety, @cleanliness, @health, @energy)
 		@satiety += rand(5..10)
 		@health -= rand(5..15)
 		@cleanliness -= 5
-		timeChanging()
+		checking()
 	end
-	def  randomAction2_doSports
-		after1hour(@asleep, @happiness ,@satiety, @cleanliness, @health)
+	def random_action2_do_sports
+		after_period_of_time(@asleep, @happiness ,@satiety, @cleanliness, @health, @energy)
 		@satiety -= rand(5..10)
 		@health += rand(5..14)
 		@cleanliness -= 10
 		@energy -= rand(5..10)
-		timeChanging()
+		checking()
 		
 	end
 
-
-
-
-	def timeChanging
+	def checking
 		if @satiety <= 0
 			puts "#{@name} died of hunger"
-			duckWhenLost("Goodbye, my bro =(")
+			duck_when_lost("Goodbye, my bro =(")
 			exit
 		elsif @satiety < 50 and @satiety > 0
 			puts "#{@name} is hungry"
@@ -133,22 +131,24 @@ class Duck < Ui
 			exit
 		end
 
-#==============================================================
 		if @asleep > 60
 			p "#{@name} want to sleep"
 			duck("I want to sleep...Zzz")
 			@health -= rand(1..15)
 		end
+
 		if @asleep < 0
 			@asleep = 0
 		end
+
 		if @asleep >= 100
-				p "#{@name} died of lack of sleep"
+				puts "#{@name} died of lack of sleep"
+				duck_when_lost("I just wanted to sleep...")
 				puts "Press F to pay respect"
 				gets.chomp
 				exit
 		end
-#==============================================================
+
 		if @cleanliness < 0
 			@cleanliness = 0
 			puts "#{@name} duck flew away to take a shower"
@@ -158,31 +158,34 @@ class Duck < Ui
 			puts "#{@name} smells bad"
 			duck("OMG, I smell really bad")
 		end
-#==============================================================		
+
 		if @health > 100
 			@health = 100
 		end
+
 		if @health < 50
 			puts "#{@name} feeling bad"
 			duck("I got sick. I need a pill")
 		end
+
 		if @health <= 0
 			@health = 0
-			puts "#{@name} isw dead"
-			duckWhenLost("Goodbye, my bro =(")
+			puts "#{@name} is dead"
+			duck_when_lost("Goodbye, my bro =(")
 			puts "Press F to pay respect"
 			gets.chomp
 			exit
 		end
 
-
 		if @energy > 100
 			@energy = 100
 		end
+
 		if @energy < 30 and @energy > 0
 			puts "#{@name} is tired"
 			duck("I am tired")
 		end
+
 		if @energy < 0
 			@energy = 0
 			puts "#{@name} if dead"
@@ -192,14 +195,20 @@ class Duck < Ui
 		end
 
 	end
-	def after1hour(asleep, happiness, satiety, cleanliness, health)
+
+	private def after_period_of_time(asleep, happiness, satiety, cleanliness, health, energy)
 		puts "A few moments later..."
 		sleep 3
 		@asleep += rand(5..20)
 		@happiness -= rand(10..20)
 		@satiety -= rand(10..40)
 		@cleanliness -= rand(1..10) 
-		@health -= rand(1..5)		
+		@health -= rand(1..5)
+		@energy -= rand(1..10)		
+	end
+
+	def skip_day #чтобы вызывать private метод за пределами класса
+		after_period_of_time(@asleep, @happiness ,@satiety, @cleanliness, @health, @energy)
 	end
 
 	def show_stats
@@ -226,7 +235,7 @@ def help
 		Press 5 to heal your pet
 		Press 6 to drink an energy drink
 		Press 7 to play board games with your pet
-		Press 8 to watch your pet
+		Press 8 to watch what's your pet doing without you
 		Press 9 to skip 1 day
 		Use 'help' to get menu with instruction\x1b[0m"
 end
@@ -236,10 +245,10 @@ name = gets.chomp
 pet = Duck.new "#{name}"
 pet.show_stats()
 x = gets.chomp.to_s
-while x !="0"
+while x != "0"
 	case x
 		when "1"
-			pet.goToSleep()
+			pet.go_to_sleep()
 			pet.show_stats()
 			x = gets.chomp.to_s
 		when "2"
@@ -251,7 +260,7 @@ while x !="0"
 			pet.show_stats()
 			x = gets.chomp.to_s
 		when "4"
-			pet.takeAShower()
+			pet.take_a_shower()
 			pet.show_stats()
 			x = gets.chomp.to_s
 		when "5"
@@ -259,11 +268,11 @@ while x !="0"
 			pet.show_stats()
 			x = gets.chomp.to_s
 		when "6"
-			pet.drinkAnEnergyDrink()
+			pet.drink_an_energy_drink()
 			pet.show_stats()
 			x = gets.chomp.to_s
 		when "7"
-			pet.playBoardgames()
+			pet.play_boardgames()
 			pet.show_stats()
 			x = gets.chomp.to_s
 		when "8"
@@ -271,7 +280,7 @@ while x !="0"
 			pet.show_stats()
 			x = gets.chomp.to_s
 		when "9"
-			pet.after1hour(@asleep, @happiness, @satiety, @cleanliness, @health)
+			pet.skip_day
 			pet.show_stats()
 			x = gets.chomp.to_s
 		when  "help"

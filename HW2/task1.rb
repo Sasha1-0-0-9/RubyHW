@@ -20,7 +20,7 @@ p "Array with uniq elements: #{array.uniq}"
 p '______________________________________'
 p "Every element divided by 10: #{array.map{ |element| element / 10.0}}"
 
-
+p "получить новый массив, который бы содержал в себе те буквы английского алфавита, порядковый номер которых есть в нашем массиве;"
 english_array = ('a'..'z').to_a
 english_array_empty = []
 english_array.each_with_index do |element, index|
@@ -30,6 +30,7 @@ english_array.each_with_index do |element, index|
 end
 p english_array_empty
 
+p "поменять местами минимальный и максимальный элементы массива"
 puts '______________________________________'
 min = array.index(array.min)
 max = array.index(array.max)
@@ -37,6 +38,7 @@ array[min], array[max] = array[max], array[min]
 p array
 puts '______________________________________'
 
+p "найти элементы, которые находятся перед минимальным числом в массиве"
 array.each do |element|
 	print "#{element} "
 	if element == array.min
@@ -46,6 +48,7 @@ array.each do |element|
 end
 puts '______________________________________'
 
+p "необходимо найти три наименьших элемента."
 copiedArray = array
 3.times do
 	print "#{copiedArray.min} "
