@@ -1,4 +1,4 @@
-def GenerateArray()
+def generate_array()
 	size = Random.rand(5..10)
 	array = Array.new(size) {rand(-10..10)  }
 end
