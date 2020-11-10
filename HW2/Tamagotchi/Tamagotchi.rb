@@ -127,7 +127,7 @@ class Duck < Ui
 			@happiness = 100
 			end		
 		if  @happiness <= 0
-			puts "#{@name} run away to have fun"
+			puts "#{@name} flew away to have fun"
 			exit
 		end
 
@@ -151,7 +151,7 @@ class Duck < Ui
 
 		if @cleanliness < 0
 			@cleanliness = 0
-			puts "#{@name} duck flew away to take a shower"
+			puts "#{@name} flew away to take a shower"
 			exit
 		end
 		if @cleanliness < 50
@@ -170,7 +170,7 @@ class Duck < Ui
 
 		if @health <= 0
 			@health = 0
-			puts "#{@name} is dead"
+			puts "#{@name} died of illness"
 			duck_when_lost("Goodbye, my bro =(")
 			puts "Press F to pay respect"
 			gets.chomp
@@ -188,7 +188,7 @@ class Duck < Ui
 
 		if @energy < 0
 			@energy = 0
-			puts "#{@name} if dead"
+			puts "#{@name} died of lack of energy"
 			puts "Press F to pay respect"
 			gets.chomp
 			exit
