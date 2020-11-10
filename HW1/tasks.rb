@@ -8,76 +8,30 @@ end
 p' Дан целочисленный массив. Необходимо вывести вначале его элементы с четными индексами, а затем - с нечетными.'
 array = GenerateArray()
 p array
-array.each_with_index do |arr, index|
-	if index % 2 == 0
-		print array[index]
-		print ' '
-	end
-end
-
-array.each_with_index do |arr, index|
-	if index % 2 == 1
-		print array[index]
-		print ' '
-	end
-end
-puts " "
+p array.each_with_index{|el, i| p el if i.even?}
+p array.each_with_index{|el, i| p el if i.odd?}
 puts "______________________"
 
 #Task2
 p 'Дан целочисленный массив. Необходимо вывести вначале его элементы с нечетными индексами, а затем - четными.'
 array = GenerateArray()
 p array
-array.each_with_index do |arr, index|
-	if index % 2 == 1
-		print array[index]
-		print ' '
-	end
-end
-
-array.each_with_index do |arr, index|
-	if index % 2 == 0
-		print array[index]
-		print ' '
-	end
-end
-puts " "
+p array.each_with_index{|el, i| p el if i.odd?}
+p array.each_with_index{|el, i| p el if i.even?}
 puts "______________________"
 
 #Task3
 p 'Дан целочисленный массив. Вывести номер первого из тех его элементов, которые удовлетворяют двойному неравенству: A[0] < A[i] < A[-1]. Если таких элементов нет, то вывести [ ].'
 array = GenerateArray()
 p array
-isExist = false
-array.each_with_index do |arr, index|
-	if array[0]<array[index] and array[index] < array[-1]
-		isExist = true
-		print index
-		break
-	end
-end
-if not isExist
-	print "[ ]"
-end
-puts " "
+array.uniq.each { |e| break e if array.first < e && e < array.last }
 puts "______________________"
 
 #Task 4
 p 'Дан целочисленный массив. Вывести номер последнего из тех его элементов, которые удовлетворяют двойному неравенству: A[0] < A[i] < A[-1]. Если таких элементов нет, то вывести [ ]'
 array = GenerateArray()
 p array
-last = 0
-array.each_with_index do |arr, index|
-	if array[0]<array[index] and array[index] < array[-1]
-		last = index
-	end
-end
-if last != 0
-	print last
-else
-	print "[ ]"
-end
-puts " "
+array.reverse.each_with_index{|el , i| p(array.size - i - 1) && break if (el > array[0] && el < array[-1]) }
 puts "______________________"
 
 
@@ -147,11 +101,7 @@ puts "______________________"
 p 'Дан целочисленный массив. Заменить все положительные элементы на значение максимального.'
 array = GenerateArray()
 p array
-array.each_with_index do |arr, index|
-	if array[index] > 0
-		array[index] = array.max
-	end
-end
+array.map { |e| e.positive? ? e = array.max : e }
 p array
 puts "______________________"
 
@@ -529,12 +479,7 @@ puts "______________________"
 p 'Дан целочисленный массив. Найти количество минимальных элементов.'
 array = GenerateArray()
 p array
-count = 0
-(0..array.length-1).each do |i|
-	if array[i] == array.min
-		count +=1
-	end
-end
+array.map { |e| e if e == array.min }.compact.count
 p count
 puts "______________________"
 
