@@ -8,8 +8,8 @@ end
 p' Дан целочисленный массив. Необходимо вывести вначале его элементы с четными индексами, а затем - с нечетными.'
 array = GenerateArray()
 p array
-p array.each_with_index{|el, i| p el if i.even?}
-p array.each_with_index{|el, i| p el if i.odd?}
+p array.each_with_index{|el, i| p el if i.even? }
+p array.each_with_index{|el, i| p el if i.odd? }
 puts "______________________"
 
 #Task2
