@@ -16,6 +16,12 @@ This game is a console clone of the well-known game Tamagotchi.
 
 5.Enjoy the game
 
+## Game rules
+
+Your main task is not to let your pet die or run away from you. To do this, you need to interact with the animal. Feed your pet, play with it, have fun and most importantly, lead the right lifestyle, or your pet will die or run away from you.
+
+Good luck!
+
 ## Screenshots
 
 
