@@ -8,6 +8,6 @@ Gem::Specification.new do |s|
   s.email       = 'sashapysmenny@gmail.com'
   s.files       = ["lib/FortyTwo.rb"]
   s.homepage    =
-    'https://github.com/Sasha1-0-0-9/RubyHW/blob/master/HW3/FortyTwo'
+    'https://github.com/Sasha1-0-0-9/RubyHW/tree/master/HW3/FortyTwo'
   s.license       = 'MIT'
 end
