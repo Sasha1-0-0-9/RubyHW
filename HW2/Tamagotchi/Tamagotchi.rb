@@ -1,4 +1,5 @@
 require_relative 'UI'
+require 'show_as_html'
 
 class Duck < Ui
 
@@ -111,15 +112,17 @@ class Duck < Ui
 
   def checking # проверка состояния питомца
   	if @satiety <= 0
+  		@satiety = 0
   		puts "#{@name} died of hunger"
   		duck_when_lost("Goodbye, my bro =(")
   		exit
+
   	elsif @satiety < 50 and @satiety > 0
   		puts "#{@name} is hungry"
   		duck("Bro, I'm hungry. Give me some food")
   	end
 
-  	if @happiness < 50
+  	if @happiness < 50 and @happiness > 0
   		puts"#{@name} is sad"
   		duck("I'm sad. Play with me")
   	end
@@ -127,6 +130,7 @@ class Duck < Ui
   		@happiness = 100
   	end		
   	if  @happiness <= 0
+  		@happiness = 0
   		puts "#{@name} flew away to have fun"
   		exit
   	end
@@ -193,16 +197,33 @@ class Duck < Ui
 
   def skip_day #чтобы вызывать private метод за пределами класса
   	after_period_of_time(@asleep, @happiness ,@satiety, @cleanliness, @health, @energy)
+  	checking
   end
 
-  def show_stats
-  	puts "_______________________________
-    |#{@name}'s happiness: #{@happiness}      
-    |#{@name}'s satiety: #{@satiety}        
-    |#{@name}'s sleepiness: #{@asleep}       
-    |#{@name}'s cleanliness: #{@cleanliness}
-    |#{@name}'s health: #{@health}
-    |#{@name}'s energy: #{@energy}"
+  #def show_stats
+  #	puts "_______________________________
+    #|#{@name}'s happiness: #{@happiness}      
+    #|#{@name}'s satiety: #{@satiety}        
+    #|#{@name}'s sleepiness: #{@asleep}       
+    #|#{@name}'s cleanliness: #{@cleanliness}
+    #|#{@name}'s health: #{@health}
+    #|#{@name}'s energy: #{@energy}"
+  #end
+    def show_stats
+  	return "
+    #{@name}'s happiness: #{@happiness}      
+    #{@name}'s satiety: #{@satiety}        
+    #{@name}'s sleepiness: #{@asleep}       
+    #{@name}'s cleanliness: #{@cleanliness}
+    #{@name}'s health: #{@health}
+    #{@name}'s energy: #{@energy}
+    #{@emoji}"
+  end
+
+  def return_array
+  	state = ["happiness: #{@happiness}" , "satiety: #{@satiety} ", "sleepiness: #{@asleep} ",
+  	"cleanliness: #{@cleanliness}" , "health: #{@health}", "energy: #{@energy}", "#{@emoji}"]
+  	return state
   end
 
   private
@@ -219,6 +240,22 @@ class Duck < Ui
   end
 
 end
+
+class ShowHTML
+
+	def create_html(name, state)
+		content = File.read("index.html")
+		  	File.open("pet.html", "w") do |file|
+		  		emoji = state[-1]
+		  		state.delete_at(-1)
+		  		p emoji
+		  		content.gsub! "[name]" , name
+		  		content.gsub! "[state]" , state.join("<br>")
+		  		content.gsub! "[emoji]" , emoji
+		  		file.puts content
+		  	end
+		  end
+  end
 
 def help
 	puts "			\x1b[1;32mINSTRUCTION
@@ -244,39 +281,39 @@ while x != "0"
 	case x
 	when "1"
 		pet.go_to_sleep()
-		pet.show_stats()
+		puts pet.show_stats
 		x = gets.chomp.to_s
 	when "2"
 		pet.feed()
-		pet.show_stats()
+		puts pet.show_stats()
 		x = gets.chomp.to_s
 	when "3"
 		pet.walk()
-		pet.show_stats()
+		puts pet.show_stats()
 		x = gets.chomp.to_s
 	when "4"
 		pet.take_a_shower()
-		pet.show_stats()
+		puts pet.show_stats()
 		x = gets.chomp.to_s
 	when "5"
 		pet.heal()
-		pet.show_stats()
+		puts pet.show_stats()
 		x = gets.chomp.to_s
 	when "6"
 		pet.drink_an_energy_drink()
-		pet.show_stats()
+		puts pet.show_stats()
 		x = gets.chomp.to_s
 	when "7"
 		pet.play_boardgames()
-		pet.show_stats()
+		puts pet.show_stats()
 		x = gets.chomp.to_s
 	when "8"
 		pet.spectate()
-		pet.show_stats()
+		puts pet.show_stats()
 		x = gets.chomp.to_s
 	when "9"
 		pet.skip_day
-		pet.show_stats()
+		puts pet.show_stats()
 		x = gets.chomp.to_s
 	when  "help"
 		help()
@@ -286,3 +323,4 @@ while x != "0"
 		x = gets.chomp.to_s
 	end 
 end
+
